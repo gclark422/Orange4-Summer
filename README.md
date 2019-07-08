@@ -43,4 +43,6 @@ $ git push origin [branch name]
 - Then your PR will have to be approved and merged then you're done!
 - I know this seems like a lot but I promise it isnt that bad!
 _______
-## For now when you checkout a new branch just make a new SAS file to work in if you need to do something so we don't have to deal with merge conflicts.
+- For now when you checkout a new branch just make a new SAS file to work in if you need to do something so we don't have to deal with merge conflicts.
+- When you start working for the day do `git pull origin master`
+
