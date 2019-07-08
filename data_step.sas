@@ -20,6 +20,6 @@ data info_train info_valid;
 	set summer.loan_info;
 	call streaminit(12345);
 	random = RAND("Uniform");
-	if random <= 0.2 then output info_valid;
+	if random <= 0.2 then output ;
 	else output info_train;
 run;
