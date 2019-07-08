@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 """
-Yao Sun
+Created on Mon Jul  8 15:34:11 2019
+
+@author: ysun49
 
 Merging SAS datasets
 
