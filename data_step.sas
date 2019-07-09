@@ -4,9 +4,10 @@ libname extra "D:\Data\extra_info_m";
 /*
 	Importing the merged dataset into the SUMMER.MERGE library
 */
-proc import datafile="D:\Data\df_merge.csv";
-	out=summer.merge;
-	DBMS=CSV;
+proc import datafile="D:\Data\df_merge.csv"
+	out=summer.merge
+	DBMS=CSV
+	replace;
 run;
 
 /*
