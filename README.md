@@ -18,7 +18,7 @@ $ cd Orange4-Summer
 ```bash
 $ git checkout -b [branch name]
 ```
-- Keep branch names short and sweet. Example: "Grant data step"
+- Keep branch names short and sweet. Example: "Grant_data_step"
 - Here's how to add files to commit and push
 - *After doing some changes/working on new files*
 ```bash
