@@ -13,7 +13,7 @@ proc univariate data=work.info_train;
 	inset n mean std / position=ne;
 run;
 
-/* Box plot to see if there are outliars - there are some */
+/* Box plot to see if there are outliers - there are some */
 proc sgplot data=work.info_train;
 	vbox int_rate;
 run;
