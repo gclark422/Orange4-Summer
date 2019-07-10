@@ -42,5 +42,3 @@ ods graphics off;
 proc sgscatter data=work.info_train;
 	plot int_rate*annual_inc / reg;
 run;
-
-	
