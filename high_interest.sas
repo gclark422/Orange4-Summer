@@ -35,10 +35,19 @@ proc glm data=work.info_train plots=ALL;
 	class grade;
 	model int_rate = annual_inc|delinq_2yrs|grade;
 run;
-ods graphics off;
 /* delinq_2yrs becomes unsignificant in type 3 SS */
 
 /* a garbage scatter plot - all the scatter plots look like trash and show no obvious correlation */
 proc sgscatter data=work.info_train;
 	plot int_rate*annual_inc / reg;
+run;
+
+proc freq data=work.info_train;
+	table total_rec_late_fee;
+
+proc univariate data=work.info_train;
+	where total_rec_late_fee > 0;
+	var total_rec_late_fee;
+	histogram total_rec_late_fee/ normal kernel;
+	inset n mean std / position=ne;
 run;
