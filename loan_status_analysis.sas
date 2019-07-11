@@ -5,7 +5,6 @@
 	total_rec_prncp total_rec_int total_rec_late_fee recoveries collection_recovery_fee last_pymnt_amnt
 	collections_12_mths_ex_med acc_now_delinq tot_coll_amt tot_cur_bal total_rev_hi_lim;
 
-
 data temp;
 	set work.info_train;
 	keep loan_status;
@@ -16,9 +15,10 @@ run;
 
 data loan_status_separated;
 	set work.info_train;
+
 	if find(loan_status, 'charged off','i') ge 1 or
-	   find(loan_Status, 'Default','i') ge 1 	 or 
-	   find(loan_status, 'late','i') ge 1 		 then
+		find(loan_Status, 'Default','i') ge 1 	 or 
+		find(loan_status, 'late','i') ge 1 then
 		do;
 			Late=1;
 			Paid=0;
@@ -38,20 +38,20 @@ data loan_status_separated;
 			Paid=0;
 			Current=1;
 			output;
-	end;
+		end;
 run;
 
 proc logisitic data=loan_status_separated;
-model Late=&interval/ selection=stepwise slentry=0.05;
+	model Late=&interval/ selection=stepwise slentry=0.05;
 run;
+
+*int_rate out_prncp total_rec_late_fee;
+proc logistic data=loan_status_separated;
+	model Paid=&interval/ selection=stepwise slentry=0.05;
+run;
+*funded_amnt_inv installment out_prncp_inv total_rec_prncp last_pymnt_amnt;
 
 proc logistic data=loan_status_separated;
-model Paid=&interval/ selection=stepwise slentry=0.05;
+	model Current=&interval/ selection=stepwise slentry=0.05;
 run;
-
-proc logistic data=loan_status_separated;
-model Current=&interval/ selection=stepwise slentry=0.05;
-run;
-
-
-	
+*funded_amnt_inv int_rate installment mths_since_last_record revol_util out_prncp total_pymnt total_pymnt_inv total_rec_prncp total_rec_late_fee last_pymnt_amnt tot_cur_bal;
