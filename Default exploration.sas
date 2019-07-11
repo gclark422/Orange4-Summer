@@ -17,11 +17,25 @@
 
 data work.update;
 	set summer.merge;
-	default = (loan_status='Default');
+	if upcase(loan_status)contains "Fully Paid" or "Current" or "Issued" then 
+		do;
+			Default=1;
+			output;
+		end;
+	if upcase(loan_status) contains "Default" then 
+		do;
+			Default=0;
+			output;
+		end;
+	else 
+		do;
+			Default=.;
+			output;
+	end;
 run;
 
-proc logisitic data=work.update;
-	model default= open_acc delinq_2yrs revol_bal dti;
+proc logistic data=work.update;
+	model default= int_rate last_pymnt_amnt open_acc delinq_2yrs;
 run;
 
 proc freq data=work.update;
@@ -36,4 +50,12 @@ run;
 
 proc means data=summer.merge;
 	var funded_amnt int_rate tot_coll_amt;
+run;
+
+proc freq data=summer.merge;
+tables total_rec_late_fee ;
+run;
+
+proc freq data=summer.merge;
+tables loan_status;
 run;
