@@ -52,3 +52,19 @@ data info_train info_valid;
 	if random <= 0.2 then output info_valid;
 	else output info_train;
 run;
+
+/*
+	Creating a new dataset called good_or_bad with a new column called isGood that is 1 if loan status is "fully paid", 0 if loan status is 
+	charged off or default and missing otherwise
+*/
+data summer.good_or_bad;
+	set summer.info_new;
+	if find(loan_status, "fully","i") ge 1 then
+		isGood = 1;
+	else if find(loan_status, "charged", "i") ge 1 or
+			find(loan_status, "Default", "i") ge 1 then
+		isGood = 0;
+	else do;
+		isGood=.;
+	end;
+run;
