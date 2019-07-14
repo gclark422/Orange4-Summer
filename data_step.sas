@@ -28,10 +28,25 @@ proc import datafile="D:\Data\df_merge.csv"
 run;
 
 /*
+	Creating the new cleaned dataset
+*/
+data summer.info_new(drop= url desc mths_since_last_major_derog policy_code application_type annual_inc_joint dti_joint verification_status_joint inq_last_12m total_cu_tl inq_fi all_util max_bal_bc open_rv_24 open_rv_12m il_util total_bal_il mths_since_rcnt_il 
+		 open_il_24m open_il_12m open_il_6m open_acc_6m);
+	set summer.merge;
+	where loan_status not like "%Does not meet%";
+	if funded_amnt_inv - funded_amnt < 0 then 
+		funded_investors=0;
+	else
+		do;
+		funded_investors=1;
+	end;
+run;
+
+/*
 	80-20 split of the data into training and validation
 */
 data info_train info_valid;
-	set summer.merge;
+	set summer.info_new;
 	call streaminit(34035);
 	random = RAND("Uniform");
 	if random <= 0.2 then output info_valid;
