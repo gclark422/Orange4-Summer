@@ -43,17 +43,6 @@ data summer.info_new(drop= url desc mths_since_last_major_derog policy_code appl
 run;
 
 /*
-	80-20 split of the data into training and validation
-*/
-data info_train info_valid;
-	set summer.info_new;
-	call streaminit(34035);
-	random = RAND("Uniform");
-	if random <= 0.2 then output info_valid;
-	else output info_train;
-run;
-
-/*
 	Creating a new dataset called good_or_bad with a new column called isGood that is 1 if loan status is "fully paid", 0 if loan status is 
 	charged off or default and missing otherwise
 */
@@ -67,4 +56,15 @@ data summer.good_or_bad;
 	else do;
 		isGood=.;
 	end;
+run;
+
+/*
+	80-20 split of the data into training and validation
+*/
+data info_train info_valid;
+	set summer.good_or_bad;
+	call streaminit(34035);
+	random = RAND("Uniform");
+	if random <= 0.2 then output info_valid;
+	else output info_train;
 run;
