@@ -15,6 +15,7 @@ run;
 
 /* Box plot to see if there are outliers - there are some */
 proc sgplot data=work.info_train;
+	where loan_status not like "%Does not meet%";
 	vbox int_rate;
 run;
 
@@ -40,7 +41,7 @@ run;
 /* a garbage scatter plot - all the scatter plots look like trash and show no obvious correlation */
 proc sgscatter data=work.info_train;
 	plot int_rate*annual_inc / reg;
-run;
+run; 
 
 proc freq data=work.info_train;
 	table total_rec_late_fee;
