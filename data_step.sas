@@ -15,8 +15,15 @@ total_rec_prncp total_rec_int total_rec_late_fee recoveries acc_now_delinq;
 
 /* all categorical variables */
 %let categorical = term grade sub_grade emp_title emp_length home_ownership verification_status loan_status pymnt_plan
-purpose title zip_code addr_state inital_list_status mths_since_last_major_derog application_type annual_inc_joint 
-dti_joint verification_status_joint;
+purpose title addr_state inital_list_status;
+
+/* everything */
+%let all = loan_amnt funded_amnt funded_amnt_inv term int_rate installment grade sub_grade 
+annual_inc emp_title emp_length home_ownership verification_status loan_status 
+dti delinq_2yrs inq_last_6mths  mths_since_last_delinq mths_since_last_record
+open_acc pub_rec revol_bal revol_util total_acc out_prncp out_prncp_inv total_pymnt total_pymnt_inv 
+total_rec_prncp total_rec_int total_rec_late_fee recoveries collection_recovery_fee last_pymnt_amnt
+collections_12_mths_ex_med acc_now_delinq tot_coll_amt tot_cur_bal total_rev_hi_lim;
 
 /*
 	Importing the merged dataset into the SUMMER.MERGE library
