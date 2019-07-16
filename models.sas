@@ -21,3 +21,27 @@ proc logistic data=summer.invested;
 	class &categorical_mc_removed;
 	model funded_investors = &interval_mc_removed &categorical_mc_removed/ selection=stepwise slentry=.05;
 run;
+
+/*A logistic regression on loan standing and sub_grade*/
+proc logistic data=info_train;
+class sub_grade;
+model isGood = sub_grade;
+run;
+/*Group C4 and C5 into a new group C3*/
+data info_valid2;
+	set info_valid;
+	if sub_grade = 'C4' then sub_grade='C3';
+	if sub_grade = 'C5' then sub_grade='C3';
+run;
+/*apply logistic model to the validating dataset*/
+proc logistic data=info_valid2;
+class sub_grade;
+model isGood = sub_grade;
+run;
+
+
+data info_valid2;
+	set info_valid;
+	if sub_grade = 'C4' then sub_grade='C3';
+	if sub_grade = 'C5' then sub_grade='C3';
+run;
