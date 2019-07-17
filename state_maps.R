@@ -69,6 +69,3 @@ loan_map <- ggplot(df_merge,aes(map_id = region))+
   theme(legend.position = "bottom", 
         panel.background = element_blank())
 loan_map
-
-
-
