@@ -28,6 +28,9 @@ $ git add --all
 --OR--
 ```bash
 $ git add [name specific files]
+```
+Then always do:
+```
 $ git commit -m "[message]"
 ```
 - Keep the commit messages short and informative of what you worked on.
